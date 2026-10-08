@@ -37,6 +37,7 @@ Where files go: macOS `~/Downloads/tidaldl`, Termux `~/storage/downloads/tidaldl
 | [HANDOFF.md](HANDOFF.md) | you pick the app up: the finished state, nothing historical |
 | [DEVELOPMENT.md](DEVELOPMENT.md) | you are about to change a decision: every bug and every reason |
 | [DELIVERY_RECORD.md](DELIVERY_RECORD.md) | you want to know what was measured and what was not tested |
+| [LOCAL_TEST_PROMPT.md](LOCAL_TEST_PROMPT.md) | you want Claude Code on the Mac to test it on the real Mac and an Android emulator |
 | [TAKEOVER.md](TAKEOVER.md), [LESSONS.md](LESSONS.md), [momentaryupdates.md](momentaryupdates.md) | the running state, what was learned, the requests word for word |
 
 Run the tests (four, on a real pty, no TIDAL account needed):

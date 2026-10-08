@@ -19,6 +19,8 @@ TESTS       30 checks, 0 red: mechanism 10, real thing 3, ugly cases 10, upgrade
             Each test was shown able to fail: five deliberate breakages (AAC accepted as FLAC, shebang lost, URL pattern narrowed, arm64 check removed, quality pin changed) each turned the right test red.
             Found and fixed by the tests: staging folder leak on a failed download; "any key" read in the wrong terminal mode.
 
+LIVE INSTALL     8.10.2026, from a fresh clone of main: the Termux installer was run through the real `curl | bash` URL with only `pkg` stubbed (real venv, real `pip install` of streamrip dev -> streamrip 2.2.0, real `rip`). Exit 0; `tidaldl --version` v22; with no login the command prints the login hint and downloads nothing. Not Android: Linux.
+
 REAL streamrip   `pip install` of streamrip `dev` and `rip config path` were run for real in a sandbox; `tidaldl --setup` was run against the config it generated. The result was inspected line by line.
 
 NOT TESTED
