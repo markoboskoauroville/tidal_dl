@@ -28,6 +28,12 @@ Appended, never rewritten. Present state is in [HANDOFF.md](HANDOFF.md).
 - Not a bug here, but written down because the manifest paid for it (termux-app.md §10): the updater validates size, shebang, parse **and an end marker** (`# end of tidaldl`), because a parse check passes on some truncated files. Test 3 feeds it half a file and expects "nothing was changed".
 - The updater keeps the installed file's first line, because on Termux it is rewritten to Termux's python and a verbatim overwrite would break the command (Test 4).
 
+### pycares will not compile on Android, so streamrip would not install on Termux
+- **Symptom (observed on a real phone, 16.10.2026):** `curl ... install-termux.sh | bash` ran, built streamrip and Pillow, then failed: `deps/c-ares/src/lib/ares_setup.h:43:12: fatal error: 'ares_config.h' file not found` → `Failed building wheel for pycares` → `error: failed-wheel-build-for-install`. streamrip was never installed; `tidaldl` could not download anything.
+- **Cause:** streamrip pulls in `pycares` (via aiohttp/aiodns). pycares bundles its own copy of c-ares and builds it with CMake. On Android that step produces no `ares_config.h`, so the compile aborts. (The older Termux symptom was a `getservbyport_r` redeclaration; same root — the bundled c-ares does not fit Android.)
+- **Fix (installer, v22 build):** install Termux's own `c-ares` package (`pkg install ... c-ares`) and build pycares against it by setting `PYCARES_USE_SYSTEM_LIB=1` for the `pip install`. With the system library, pycares skips the bundled CMake build entirely. Verified: the installer regenerates cleanly, parses (`bash -n`), and runs to a working `tidaldl` in a stubbed sandbox; the real pycares build against Termux's c-ares is confirmed by re-running the one-line installer on the phone. The app (`tidaldl.py`) is byte-for-byte unchanged, so VERSION stays 22 — this is a build-recipe fix, not an app change.
+- **Test:** `tests/test5_termux.py` was added (wired into `run_all.py`) to exercise the real Termux code paths on this machine — `IS_TERMUX` detection and `default_download_dir()` choosing `~/storage/downloads/tidaldl` or `~/tidaldl` — which the other four tests never did because they override every path via env. It cannot build pycares (that needs a real device), so the install-step fix above is proven on the phone, not in CI.
+
 ## Part two: decisions, and what was rejected
 
 | decision | rejected | why |

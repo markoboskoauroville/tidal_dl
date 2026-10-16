@@ -15,7 +15,7 @@ GATES       G1 provenance   pass   2/2 installers fresh and stamped v22; VERSION
             G8 upgrade      pass   Test 4: v21 prefs and 5-field history read by v22; `--setup` over a v21-patched config changes nothing; U key replaces the file in place and keeps the shebang; both generated installers run twice over the top
             G9 record       this document
 
-TESTS       30 checks, 0 red: mechanism 10, real thing 3, ugly cases 10, upgrade 7.
+TESTS       32 checks, 0 red: mechanism 10, real thing 3, ugly cases 10, upgrade 7, termux 2.
             Each test was shown able to fail: five deliberate breakages (AAC accepted as FLAC, shebang lost, URL pattern narrowed, arm64 check removed, quality pin changed) each turned the right test red.
             Found and fixed by the tests: staging folder leak on a failed download; "any key" read in the wrong terminal mode.
 
@@ -26,7 +26,7 @@ REAL streamrip   `pip install` of streamrip `dev` and `rip config path` were run
 NOT TESTED
 - **No real TIDAL login and no real download.** There is no TIDAL account in this session. The fake `rip` writes real FLAC and AAC files (ffmpeg) and the verification runs on them, but what TIDAL actually serves, the device-code login, and token refresh are unproven. Marko's hand is the test (see below).
 - **Nothing ran on a real Mac.** The macOS installer was run on Linux with `uname`, `brew`, `pipx` stubbed to say Darwin/arm64. Unproven: Homebrew installs, `pipx install` of streamrip on macOS, `/opt/homebrew/bin` being writable, `~/.zshrc` PATH handling on a real shell, the `cmd+v` paste in Terminal.app.
-- **Nothing ran in real Termux.** Run on Linux with a stub `pkg` and a stub venv. Unproven (termux-app.md §12): `pkg install` of the listed packages, whether streamrip's dependencies compile on the phone's Python (aiohttp and others; the `rust` and `clang` packages are installed for that), `termux-open-url` opening the login page, long-press paste, the layout at phone width, wake lock during a long download (not implemented).
+- **Real Termux, partial (16.10.2026).** The one-line installer was run on a real Android phone (aarch64, Python 3.14). It installed packages and built streamrip and Pillow, then failed building `pycares`: the bundled c-ares produced no `ares_config.h`. **Fixed in the installer:** `pkg install ... c-ares` plus `PYCARES_USE_SYSTEM_LIB=1` on the `pip install`, so pycares links Termux's system c-ares instead of its bundled copy (see DEVELOPMENT.md). Still unproven on the phone after this fix: that the `pip install` now completes, that `termux-open-url` opens the login page, long-press paste, the layout at phone width, wake lock during a long download (not implemented). A confirming re-run of the one-liner on the phone is the next step.
 - **Playlists and artists with hundreds of tracks**: staging holds the whole download in temp space before moving. On a phone with little free space that may run out. Not measured.
 - G6 stress (long soak, monkey input) and G7 budgets (start time, memory) were not run.
 - The GitHub raw URLs in the README are checked from outside after the push, see the push note in TAKEOVER.md.

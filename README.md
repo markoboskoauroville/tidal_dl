@@ -40,7 +40,7 @@ Where files go: macOS `~/Downloads/tidaldl`, Termux `~/storage/downloads/tidaldl
 | [LOCAL_TEST_PROMPT.md](LOCAL_TEST_PROMPT.md) | you want Claude Code on the Mac to test it on the real Mac and an Android emulator |
 | [TAKEOVER.md](TAKEOVER.md), [LESSONS.md](LESSONS.md), [momentaryupdates.md](momentaryupdates.md) | the running state, what was learned, the requests word for word |
 
-Run the tests (four, on a real pty, no TIDAL account needed):
+Run the tests (five, on a real pty, no TIDAL account needed):
 
 ```sh
 python3 tests/run_all.py

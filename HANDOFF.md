@@ -32,7 +32,7 @@ Arrow up/down and space choose the quality (AAC 320 or FLAC 16/44.1, FLAC is the
 | `tidaldl.py` | the app. `VERSION` is the one place the number lives |
 | `src/macos.sh.in`, `src/termux.sh.in` | installer templates |
 | `tools/build_installers.py` | generates the two installers |
-| `tests/` | the four tests, `python3 tests/run_all.py` |
+| `tests/` | the five tests, `python3 tests/run_all.py` |
 | `gates/run_gates.py` | the delivery gates with counts |
 | `legacy/install_tidaldl_v21.sh` | the original macOS installer, kept for the upgrade test |
 
