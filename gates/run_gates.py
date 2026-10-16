@@ -118,6 +118,15 @@ gate("G5 dead loops", "FAIL" if unexpected or len(whiles) != EXPECTED_WHILES els
      f"{len(whiles)} while loops; {len(externals)} external waits, {len(externals) - len(undeadlined)} with a deadline, "
      f"{len(undeadlined)} without (download, login: the person is watching and can Ctrl-C)")
 
+# G9 copy page: README copy links and docs/index.html are generated from the
+# commands and in sync (mantra_manifest copy-buttons.md: the GitHub app shows no
+# copy button, so each command links to a card with one on GitHub Pages)
+cp = sh(sys.executable, "tools/build_copy_page.py", "--check")
+cp_detail = (cp.stdout.strip().splitlines() or [""])[-1] if cp.returncode == 0 else \
+    "; ".join(l[len("STALE: "):] if l.startswith("STALE: ") else l
+              for l in cp.stdout.strip().splitlines()) or cp.stderr.strip()[-200:]
+gate("G9 copy page", "pass" if cp.returncode == 0 else "FAIL", cp_detail)
+
 # G8 upgrade is Test 4; run the four tests and print the counts
 r = sh(sys.executable, "tests/run_all.py")
 print(r.stdout.strip())

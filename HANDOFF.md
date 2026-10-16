@@ -32,12 +32,16 @@ Arrow up/down and space choose the quality (AAC 320 or FLAC 16/44.1, FLAC is the
 | `tidaldl.py` | the app. `VERSION` is the one place the number lives |
 | `src/macos.sh.in`, `src/termux.sh.in` | installer templates |
 | `tools/build_installers.py` | generates the two installers |
+| `tools/build_copy_page.py` | generates `docs/index.html` and the README copy links from the README's `sh` commands |
+| `docs/index.html` | GitHub Pages: a card with a Copy button per command (the GitHub Android app has no copy icon) |
 | `tests/` | the five tests, `python3 tests/run_all.py` |
 | `gates/run_gates.py` | the delivery gates with counts |
 | `legacy/install_tidaldl_v21.sh` | the original macOS installer, kept for the upgrade test |
 
 ## Building a new version
-Edit `tidaldl.py`, raise `VERSION` by one (every change is a new number), run `python3 tools/build_installers.py`, update the version line above, run `python3 gates/run_gates.py`, commit and push. The U key in a running app reads `tidaldl.py` from `main`.
+Edit `tidaldl.py`, raise `VERSION` by one (every change is a new number), run `python3 tools/build_installers.py`, update the version line above, run `python3 gates/run_gates.py`, commit and push. The U key in a running app reads `tidaldl.py` from `main`. If you change a command in the README, run `python3 tools/build_copy_page.py` so the copy page and its links stay in sync (the gate's G9 fails otherwise).
+
+The copy page is served by GitHub Pages: enable it once at Settings → Pages → Source = `main`, folder `/docs`. It then lives at `https://markoboskoauroville.github.io/tidal_dl/`, the URL the README links point to.
 
 ## What has never been proven
 See [`DELIVERY_RECORD.md`](DELIVERY_RECORD.md), NOT TESTED. In short: no real TIDAL login or download has been run, nothing has run on a real Mac or in real Termux.

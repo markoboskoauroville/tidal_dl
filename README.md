@@ -6,11 +6,15 @@
 curl -fsSL https://raw.githubusercontent.com/markoboskoauroville/tidal_dl/main/install-macos.sh | bash
 ```
 
+📋 [Copy this command](https://markoboskoauroville.github.io/tidal_dl/#cmd-1)
+
 **Termux (Android): install with one line, then run `tidaldl`.**
 
 ```sh
 pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/markoboskoauroville/tidal_dl/main/install-termux.sh | bash
 ```
+
+📋 [Copy this command](https://markoboskoauroville.github.io/tidal_dl/#cmd-2)
 
 Paste a TIDAL album, track, playlist or artist link and it downloads with [streamrip](https://github.com/nathom/streamrip). A FLAC request is staged and every file is checked with ffprobe before it is saved: if TIDAL serves AAC instead, nothing is saved and no existing file is touched. You have a TIDAL subscription; the app uses your own login and nothing else.
 
@@ -20,11 +24,15 @@ First run, log in once: start the app and press `a`.
 tidaldl
 ```
 
+📋 [Copy this command](https://markoboskoauroville.github.io/tidal_dl/#cmd-3)
+
 Download a link without the menu:
 
 ```sh
 tidaldl https://tidal.com/album/12345
 ```
+
+📋 [Copy this command](https://markoboskoauroville.github.io/tidal_dl/#cmd-4)
 
 Update from inside the app: press `u`. It shows installed and available version and asks `y`.
 
@@ -46,10 +54,14 @@ Run the tests (five, on a real pty, no TIDAL account needed):
 python3 tests/run_all.py
 ```
 
+📋 [Copy this command](https://markoboskoauroville.github.io/tidal_dl/#cmd-5)
+
 Run the delivery gates:
 
 ```sh
 python3 gates/run_gates.py
 ```
+
+📋 [Copy this command](https://markoboskoauroville.github.io/tidal_dl/#cmd-6)
 
 Marko Boško · Mantra Productions · Zagreb. Personal use with your own TIDAL subscription.
